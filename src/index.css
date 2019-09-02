@@ -5,9 +5,33 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: url(/images/Capture.png) no-repeat;
+  opacity: 0.8;
+  background-size: 100%;
+  background-position: bottom;
+  /* //background-color: blue; */
+  min-height:100%;
+}
+
+html {
+  min-height: 100%;
+  }
+
+form {
+  padding: 20px;
+  margin-top: 60px;
+  opacity: 1;
+}
+
+form h5, form button {
+  margin: 20px, 0;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+button {
+  opacity: 1;
 }
