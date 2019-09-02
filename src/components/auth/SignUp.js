@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {signUp} from '../store/actions/authActions'
 import Checkbox from './termsAndConditions';
-import Menu from './DropdownGenre';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import CheckboxGenre from './CheckboxGenre'
 
 class SignUp extends Component {
   state = {
@@ -14,8 +16,8 @@ class SignUp extends Component {
     confirmPassword: '',
     contact: '',
     startDate: new Date(),
-    gender: 'male',
     years: 0,
+    value: ''
     //isChecked: true,//checkbox for checking terms and conditions
   }
 
@@ -24,6 +26,11 @@ class SignUp extends Component {
   //     isChecked: !this.state.isChecked,
   //   });
   // }
+  handleDateChange = date => {
+    this.setState({
+      startDate: date
+    });
+  };
   handleSubmit = (e) => {
     e.preventDefault();
     if(this.state.password !== this.state.confirmPassword) {
@@ -50,6 +57,7 @@ class SignUp extends Component {
     const {auth, authError} = this.props;
     if(auth.uid) return <Redirect to = '/' />
     return (
+      // <React.Fragment>
       <div className = "container">
         <form onSubmit = {this.handleSubmit} className = "white">
           <h5 className = "grey-text text-darken-2">Sign Up</h5>
@@ -61,6 +69,15 @@ class SignUp extends Component {
             <label htmlFor = "lastName">Last Name</label>
             <input type = "text" id = "lastName" onChange = {this.handleChange}/>
           </div>
+
+          <div >
+          <label htmlFor = "startDate">Birth date<br/></label>
+          <DatePicker
+                selected={this.state.startDate}
+                onChange={this.handleDateChange}
+              />
+          </div>
+          
           <div className = "input-field">
             <label htmlFor = "email">Email</label>
             <input type = "text" id = "email" onChange = {this.handleChange}/>
@@ -74,17 +91,20 @@ class SignUp extends Component {
             <label htmlFor = "password">Confirm Password</label>
             <input type = "password" id = "password" onChange = {this.handleConfirmPassword}/>
           </div>
-         
-          {/* <div>
-            <Menu />
-          </div> */}
-          <div className = "input-field">
+          
+          <div>
+            <CheckboxGenre />
+          </div>
+           <div className = "input-field">
             <label htmlFor = "years">Experience in years</label>
             <input type = "number" id = "years" onChange = {this.handleChange}/>
           </div>
 
           <div>
-
+          <label htmlFor="value" >
+          Writing Experience (150 words):
+          <textarea value={this.state.value} maxLength = "200" id = "value" onChange={this.handleChange} />
+        </label>
           </div>
           <div className = "input-field">
             <label htmlFor = "contact">Telephone Number</label>
@@ -102,6 +122,7 @@ class SignUp extends Component {
           </div>
         </form>
       </div>
+      // </React.Fragment>
     )
   }
 }
