@@ -21,16 +21,12 @@ class SignUp extends Component {
     //isChecked: true,//checkbox for checking terms and conditions
   }
 
-  // toggleChange = () => {
-  //   this.setState({
-  //     isChecked: !this.state.isChecked,
-  //   });
-  // }
   handleDateChange = date => {
     this.setState({
       startDate: date
     });
   };
+
   handleSubmit = (e) => {
     e.preventDefault();
     if(this.state.password !== this.state.confirmPassword) {
@@ -57,25 +53,33 @@ class SignUp extends Component {
     const {auth, authError} = this.props;
     if(auth.uid) return <Redirect to = '/' />
     return (
-      // <React.Fragment>
-      <div className = "container">
+       <React.Fragment>
+      <div className = "section container">
         <form onSubmit = {this.handleSubmit} className = "white">
-          <h5 className = "grey-text text-darken-2">Sign Up</h5>
-          <div className = "input-field">
-            <label htmlFor = "firstName">First Name</label>
-            <input type = "text" id = "firstName" onChange = {this.handleChange}/>
-          </div>
-          <div className = "input-field">
-            <label htmlFor = "lastName">Last Name</label>
-            <input type = "text" id = "lastName" onChange = {this.handleChange}/>
-          </div>
+        <h5 className = "grey-text text-darken-2">Sign Up</h5>
+          <br/>
 
-          <div >
-          <label htmlFor = "startDate">Birth date<br/></label>
-          <DatePicker
-                selected={this.state.startDate}
-                onChange={this.handleDateChange}
-              />
+          <div className = "row">
+            <div className = "input-field col s12 l5 ">
+              <label htmlFor = "firstName">First Name</label>
+              <input type = "text" id = "firstName" onChange = {this.handleChange}/>
+            </div>
+            <div className = "input-field col s12 l5 offset-l1">
+              <label htmlFor = "lastName">Last Name</label>
+              <input type = "text" id = "lastName" onChange = {this.handleChange}/>
+            </div>
+          </div>
+          
+          <div className = "row">
+            <div className = "s12 m8 l10">
+              <label htmlFor = "startDate">Birth date<br/></label>
+                <DatePicker
+                      selected={this.state.startDate}
+                      onChange={this.handleDateChange}
+                      showTimeSelect
+                      dateFormat="Pp"
+                  />
+            </div>
           </div>
           
           <div className = "input-field">
@@ -91,38 +95,34 @@ class SignUp extends Component {
             <label htmlFor = "password">Confirm Password</label>
             <input type = "password" id = "password" onChange = {this.handleConfirmPassword}/>
           </div>
+          <div className = "row">
+            <div className = "input-field col s12 l4">
+              <label htmlFor = "years">Experience in years</label>
+              <input type = "number" id = "years" onChange = {this.handleChange}/>
+            </div>
+          </div>
+           <div className = "row">
+            <div className = "input-field">
+              <label htmlFor = "contact">Telephone Number</label>
+              <div className = "col s12 l6">
+                <input type = "tel" name = "phone" id = "contact" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" onChange = {this.handleConfirmPassword}/>
+              </div>
+            </div>
+                <div className = "col s12 l4 offset-l2">
+                  <span>Format: 123-45-678</span>
+                </div>
+           </div>
+           
           
-          <div>
-            <CheckboxGenre />
-          </div>
-           <div className = "input-field">
-            <label htmlFor = "years">Experience in years</label>
-            <input type = "number" id = "years" onChange = {this.handleChange}/>
-          </div>
-
-          <div>
-          <label htmlFor="value" >
-          Writing Experience (150 words):
-          <textarea value={this.state.value} maxLength = "200" id = "value" onChange={this.handleChange} />
-        </label>
-          </div>
-          <div className = "input-field">
-            <label htmlFor = "contact">Telephone Number</label>
-            <input type = "tel" name = "phone" id = "contact" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" onChange = {this.handleConfirmPassword}/>
-            <span>Format: 123-45-678</span>
-          </div>
-          <div>
-           <Checkbox />
-         </div>
           <div className = "input-field">
             <button className = "btn blue lighten-3 z-depth-0">Sign Up</button>
             <div className = "red-text center">
               {authError ? <p>{authError}</p>: null}
             </div>
-          </div>
+          </div> 
         </form>
       </div>
-      // </React.Fragment>
+       </React.Fragment>
     )
   }
 }
